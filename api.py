@@ -24,40 +24,51 @@ class Books(db.Model):
 
     def __repr__(self):
         return f"<Book {self.title}>"
-    
-
-
-Book = [
-        { 'id': 1, 'title': '1984', 'author': 'George Orwell', 'published_date': '1949' },
-        {'id': 2, 'title': 'To Kill a Mockingbird', 'author': 'Harper Lee', 'published_date': '1960'},
-        {'id': 3, 'title': 'The Great Gatsby', 'author': 'F. Scott Fitzgerald', 'published_date': '1925'}
-        ]
-
+     
 #CRUD:
 #create a new book
 @app.route('/books', methods=['POST'])
 def createBook():
-    new_book = request.get_json()
-    Book.append(new_book)
-    return jsonify(Book)
+    bookData = request.get_json()
+    new_book = Books(
+        title=bookData['title'],
+        author=bookData['author'],
+        published_date=bookData['published_date']
+    )
+    db.session.add(new_book)
+    db.session.commit()
+    return ({'message': 'book created'}), 201
 
 #read info about a book
 @app.route('/books', methods=['GET'])
 def getBooks():
-    return jsonify(Book)
+    book = Books.query.all()
+    books_list = [ {
+        'id': b.id,
+        'title': b.title,
+        'author': b.author,
+        'published_date': b.published_date.strftime('%Y-%m-%d')
+    } for b in book]
+    return ({'message': 'books retrieved', 'books': books_list}), 200
 
 #update a book
-@app.route('/books/<int:id>', methods=['PUT'])
+@app.route('/books/', methods=['PUT'])
 def updateBook(id):
-    book = getBooks(id)
-    Book[id] = request.get_json()
-    return jsonify(Book)
+    bookData = request.get_json()
+    book = Books.query.get_or_404(id)
+    book.title = bookData['title']
+    book.author = bookData['author']
+    book.published_date = bookData['published_date']
+    db.session.commit()
+    return ({'message': 'book updated'}), 200
 
 #delete a book
 @app.route('/books/<int:id>', methods=['DELETE'])
 def deleteBook(id):
-    Book.pop(id)
-    return jsonify(Book)
+    book = Books.query.get_or_404(id)
+    db.session.delete(book)
+    db.session.commit()
+    return ({'message': 'book deleted'}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)

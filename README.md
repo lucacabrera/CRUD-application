@@ -54,5 +54,21 @@ brew install docker
 
 and then download the app from [Docker's website](https://www.docker.com/).
 
+* **Postman (Optional)**
 
+For running commands with a more user-friendly UI you might want to use Postman. Install postman by running:
+```
+brew install --cask postman
+``` 
+
+### Installation
+
+**1. Clone the repo**
+
+Run this command in your terminal:
+```bash
+git clone https://github.com/lucacabrera/ukdsc-project.git
+cd ukdsc-project
+```
+**2. Build and start the containers**
 

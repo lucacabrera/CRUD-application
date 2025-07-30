@@ -4,20 +4,7 @@ services:
     build: .
     ports:
       - "5000:5000"
-    depends_on:
-      - db
     environment:
-      - DATABASE_URL=postgresql://postgres:Pizzas123!@db:5432/bookstore
+      - DATABASE_URL=postgresql://postgres:postgres@host.docker.internal:5432/bookstore
     volumes:
       - .:/app
-
-  db:
-    image: postgres
-    environment:
-      - POSTGRES_PASSWORD=Pizzas123!
-      - POSTGRES_DB=bookstore
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:

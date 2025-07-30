@@ -2,10 +2,11 @@ import json
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+import os
 
 #flask setup
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:postgres@localhost:5432/bookstore"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -64,7 +65,7 @@ def getBook(id):
     return ({'message': 'book retrieved', 'book': book_data}), 200
 
 #update a book
-@app.route('/books/', methods=['PUT'])
+@app.route('/books/<int:id>', methods=['PUT'])
 def updateBook(id):
     bookData = request.get_json()
     book = Books.query.get_or_404(id)
@@ -82,5 +83,5 @@ def deleteBook(id):
     db.session.commit()
     return ({'message': 'book deleted'}), 200
 
-if __name__ == "__main__":
-    app.run(debug=True)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)

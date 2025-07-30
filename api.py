@@ -26,7 +26,7 @@ class Books(db.Model):
         return f"<Book {self.title}>"
      
 #CRUD:
-#create a new book
+#add a new book
 @app.route('/books', methods=['POST'])
 def createBook():
     bookData = request.get_json()
@@ -39,7 +39,7 @@ def createBook():
     db.session.commit()
     return ({'message': 'book created'}), 201
 
-#read info about a book
+#get all books
 @app.route('/books', methods=['GET'])
 def getBooks():
     book = Books.query.all()
@@ -50,6 +50,18 @@ def getBooks():
         'published_date': b.published_date.strftime('%Y-%m-%d')
     } for b in book]
     return ({'message': 'books retrieved', 'books': books_list}), 200
+
+#retrieve one book
+@app.route('/books/<int:id>', methods=['GET'])
+def getBook(id):
+    book = Books.query.get_or_404(id)
+    book_data = {
+        'id': book.id,
+        'title': book.title,
+        'author': book.author,
+        'published_date': book.published_date.strftime('%Y-%m-%d')
+    }
+    return ({'message': 'book retrieved', 'book': book_data}), 200
 
 #update a book
 @app.route('/books/', methods=['PUT'])

@@ -15,11 +15,6 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
 
@@ -33,5 +28,31 @@ A Flask API for a bookstore database, which uses GET, POST, PUT and DELETE comma
 * [![Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
 * [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 * [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+
+
+## Getting Started
+
+To set this project up locally, and get a copy up and running, follow these simple steps. This is for macOS only.
+
+### Prerequsites
+
+These are the tools you need to run the software and how to install them on macOS using Homebrew.
+
+* **Homebrew**
+
+If you don’t have Homebrew installed, install it first by running:
+```sh
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+* **Docker**
+ 
+Install docker by running:
+```
+brew install docker
+```
+
+and then download the app from [Docker's website](https://www.docker.com/).
+
 
 

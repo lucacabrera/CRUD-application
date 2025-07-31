@@ -79,7 +79,7 @@ docker-compose up --build
 
 **3. Initialise the database**
 
-After the containers are running we can migrate the database:
+After the containers are running we can migrate the database. In a new terminal window run this (don't close the other terminal):
 ```
 docker-compose exec web flask db upgrade
 ```

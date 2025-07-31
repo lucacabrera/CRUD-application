@@ -182,8 +182,7 @@ To delete a book from the database
 * Method: `DELETE`
 
 * URL: `http://localhost:5001/books/[id]`
-* 
-
+  
 ## Ending the program
 
 To end the program run:

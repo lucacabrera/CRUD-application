@@ -72,7 +72,7 @@ cd ukdsc-project
 ```
 **2. Build and start the containers**
 
-Run the following command to start the containers:
+Make sure the docker app is open, and logged in. Then, run the following command to start the containers:
 ```
 docker-compose up --build
 ```
@@ -86,7 +86,7 @@ docker-compose exec web flask db upgrade
 
 ### Usage
 
-You can use the app using cURL commands, or if you installed it, postman.
+You can use the app using cURL commands, or if you installed it, postman. 
 
 #### **cURL Commands:**
 

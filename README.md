@@ -81,7 +81,7 @@ docker-compose up --build
 
 After the containers are running we can migrate the database:
 ```
-docker-compose exec web flask db upgrade
+docker-compose exec web flask --app api.py db upgrade
 ```
 
 ### Usage

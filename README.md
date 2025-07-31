@@ -74,12 +74,12 @@ cd ukdsc-project
 
 Make sure the docker app is open, and logged in. Then, run the following command to start the containers:
 ```
-docker-compose up --build
+docker-compose up --build -d
 ```
 
 **3. Initialise the database**
 
-After the containers are running we can migrate the database. In a new terminal window run this (don't close the other terminal):
+After the containers are running we can migrate the database:
 ```
 docker-compose exec web flask --app api.py db upgrade
 ```

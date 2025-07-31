@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
+import csv
 
 from flask import Flask, render_template
 
@@ -26,11 +27,10 @@ def seedBooks(csv_path='books.csv'):
         
         abs_path = os.path.join(os.path.dirname(__file__), csv_path)
 
-        with open(abs_path, newLine='' , encoding='utf-8') as csvfile:
+        with open(abs_path, newline='' , encoding='utf-8') as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 new_book = Books(
-                    id=row['id'],
                     title=row['title'],
                     author=row['author'],
                     published_date=row['published_date']
@@ -123,4 +123,6 @@ def deleteBook(id):
 
 
 if __name__ == "__main__":
+    with app.app_context():
+        seedBooks()  
     app.run(host="0.0.0.0", port=5000, debug=True)

@@ -97,7 +97,7 @@ All these commands should be run in a terminal window.
 Put a new book on the database.
 
 ```
-curl -X POST http://localhost:5000/books \
+curl -X POST http://localhost:5001/books \
 -H "Content-Type: application/json" \
 -d '{"title": "[title]", "author": "[author]", "published_date": "[yyyy-mm-dd]"}'
 ```
@@ -105,19 +105,19 @@ curl -X POST http://localhost:5000/books \
 
 To get all books from the database
 ```
-curl http://localhost:5000/books
+curl http://localhost:5001/books
 ```
 
 To get a specific book from the database
 ```
-curl http://localhost:5000/books/[id]
+curl http://localhost:5001/books/[id]
 ```
 
 **3. PUT**
 
 To update a book on the database
 ```
-curl -X PUT http://localhost:5000/books/1 \
+curl -X PUT http://localhost:5001/books/1 \
 -H "Content-Type: application/json" \
 -d '{"title": "[title]", "author": "[author]", "published_date": "[yyyy-mm-dd]"}'
 ```
@@ -126,7 +126,7 @@ curl -X PUT http://localhost:5000/books/1 \
 
 Delete a book off of the database
 ```
-curl -X DELETE http://localhost:5000/books/[id]
+curl -X DELETE http://localhost:5001/books/[id]
 ```
 
 
@@ -137,7 +137,7 @@ Start by selecting new in your workspace, and choose the HTTP option.
 
 * Method: `POST`
 
-* URL: `http://localhost:5000/books`
+* URL: `http://localhost:5001/books`
 
 * Body → Raw → JSON:
 ```
@@ -153,19 +153,19 @@ Start by selecting new in your workspace, and choose the HTTP option.
 To get all books from the database
 * Method: `GET`
 
-* URL: `http://localhost:5000/books`
+* URL: `http://localhost:5001/books`
 
 To get a specific book from the database
 * Method: `GET`
 
-* URL: `http://localhost:5000/books/[id]`
+* URL: `http://localhost:5001/books/[id]`
 
 **3. PUT**
 
 To update a book on the database
 * Method: `PUT`
 
-* URL: `http://localhost:5000/books/[id]`
+* URL: `http://localhost:5001/books/[id]`
 
 * Body → Raw → JSON:
 ```
@@ -181,4 +181,4 @@ To update a book on the database
 To delete a book from the database
 * Method: `DELETE`
 
-* URL: `http://localhost:5000/books/[id]`
+* URL: `http://localhost:5001/books/[id]`

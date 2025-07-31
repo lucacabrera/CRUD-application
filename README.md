@@ -86,7 +86,7 @@ docker-compose exec web flask --app api.py db upgrade
 
 ### Usage
 
-You can use the app using cURL commands, or if you installed it, postman. 
+You can use the app using cURL commands, or if you installed it, postman. Whenever square brackets are in use in the commands, leave them out and just put the data for the placeholder instead, e.g. /[id], you would write /10 if the id was 10.
 
 #### **cURL Commands:**
 

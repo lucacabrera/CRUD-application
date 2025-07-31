@@ -14,26 +14,32 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+
 @app.route("/socket.io/")
 @app.route("/socket.io/<path:path>")
 def socket_io_stub(path=None):
     return "", 204
 
-def seedBooks(csv_path='books.csv'):
+
+def seedBooks(csv_path="books.csv"):
     with app.app_context():
         if Books.query.first():
             print("Books already seeded.")
             return
-        
+
         abs_path = os.path.join(os.path.dirname(__file__), csv_path)
 
-        with open(abs_path, newline='' , encoding='utf-8') as csvfile:
+        with open(abs_path, newline="", encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 new_book = Books(
-                    title=row['title'],
-                    author=row['author'],
-                    published_date=row['published_date']
+                    title=row["title"],
+                    author=row["author"],
+                    published_date=row["published_date"],
                 )
                 db.session.add(new_book)
             db.session.commit()
@@ -124,5 +130,5 @@ def deleteBook(id):
 
 if __name__ == "__main__":
     with app.app_context():
-        seedBooks()  
+        seedBooks()
     app.run(host="0.0.0.0", port=5000, debug=True)

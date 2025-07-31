@@ -18,6 +18,27 @@ migrate = Migrate(app, db)
 def socket_io_stub(path=None):
     return "", 204
 
+def seedBooks(csv_path='books.csv'):
+    with app.app_context():
+        if Books.query.first():
+            print("Books already seeded.")
+            return
+        
+        abs_path = os.path.join(os.path.dirname(__file__), csv_path)
+
+        with open(abs_path, newLine='' , encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                new_book = Books(
+                    id=row['id'],
+                    title=row['title'],
+                    author=row['author'],
+                    published_date=row['published_date']
+                )
+                db.session.add(new_book)
+            db.session.commit()
+            print("books seeded.")
+
 
 class Books(db.Model):
     __tablename__ = "books"

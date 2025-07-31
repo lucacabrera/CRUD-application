@@ -60,7 +60,7 @@ For running commands with a more user-friendly UI you might want to use Postman.
 ```
 brew install --cask postman
 ``` 
-and install the app from [Postman's website][https://www.postman.com]
+and install the app from [Postman's website](https://www.postman.com)
 
 ### Installation
 

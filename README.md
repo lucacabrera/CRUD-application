@@ -182,3 +182,19 @@ To delete a book from the database
 * Method: `DELETE`
 
 * URL: `http://localhost:5001/books/[id]`
+* 
+
+## Ending the program
+
+To end the program run:
+```
+docker-compose down
+```
+
+When you want to restart the program, rerun:
+
+```
+docker-compose up build -d
+```
+
+Then, you can run curl commands or use postman as normal.

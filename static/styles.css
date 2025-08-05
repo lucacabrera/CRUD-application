@@ -1,0 +1,25 @@
+body {
+    background-image: url("assets/library.jpg");
+    background-size: cover;
+    margin: 0;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.manage-container {
+    height: calc(100vh - 100px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.CRUD-container {
+    background-color: rgba(0, 0, 0, 0.533);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+}

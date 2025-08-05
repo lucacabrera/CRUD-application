@@ -18,6 +18,10 @@ migrate = Migrate(app, db)
 def home():
     return render_template("index.html")
 
+@app.route("/view")
+def view_page():
+    books = Books.query.all()
+    return render_template('table.html', title = 'Books', books=books)
 
 @app.route("/socket.io/")
 @app.route("/socket.io/<path:path>")

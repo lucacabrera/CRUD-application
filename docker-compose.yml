@@ -5,7 +5,7 @@ services:
       - "5001:5000"
     environment:
       - DATABASE_URL=postgresql://postgres:Pizzas123!@db:5432/bookstore
-      - FLASK_APP_api.py
+      - FLASK_APP=api.py
     depends_on:
       - db
     volumes:

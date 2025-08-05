@@ -53,14 +53,18 @@
             <li class="nav-item">
               <a
                 class="nav-link text-white fw-semibold"
-                href="#"
+                href="index.html"
                 id="nav-manage"
               >
                 <i class="bi bi-book-fill me-1"></i>Manage
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white fw-semibold" href="#" id="nav-view">
+              <a
+                class="nav-link text-white fw-semibold"
+                href="{{ url_for('view_page') }}"
+                id="nav-view"
+              >
                 <i class="bi bi-table me-1"></i>View
               </a>
             </li>

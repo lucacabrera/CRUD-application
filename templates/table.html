@@ -1,0 +1,39 @@
+{% extends "base.html" %} {% block title %}Books Grid{% endblock %} {% block
+content %}
+<h1 style="text-align: center">Books Grid</h1>
+
+<div class="grid">
+  {% for book in books %}
+  <div class="book-card">
+    <img
+      src="{{ book.cover_icon_url or url_for('static', filename='/assets/defaulticon.png') }}"
+      alt="Cover"
+      class="book-icon"
+    />
+    <h3>{{ book.title }}</h3>
+    <div class="book-details">
+      <p><strong>Author:</strong> {{ book.author }}</p>
+      <p>
+        <strong>Published:</strong> {{ book.published_date.strftime('%Y-%m-%d')
+        }}
+      </p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = document.querySelectorAll(".book-card");
+
+    cards.forEach((card) => {
+      card.addEventListener("click", () => {
+        cards.forEach((c) => {
+          if (c !== card) c.classList.remove("open");
+        });
+        card.classList.toggle("open");
+      });
+    });
+  });
+</script>
+{% endblock %}

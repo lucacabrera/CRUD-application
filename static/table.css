@@ -5,22 +5,17 @@ h1 {
 .grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    /* exactly 5 boxes per row */
     gap: 25px;
-    /* nice spacing between boxes */
     padding: 20px;
 }
 
 .book-card {
     position: relative;
     height: 320px;
-    /* slightly taller to fit bigger icon */
     width: 100%;
-    /* full column width */
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 10px 15px 120px 15px;
-    /* less top padding to move text up */
     box-sizing: border-box;
     cursor: pointer;
     overflow: visible;
@@ -33,7 +28,6 @@ h1 {
     height: 170px;
     object-fit: contain;
     margin: 0 auto 4px;
-    /* MUCH less bottom margin */
     display: block;
     position: relative;
     z-index: 5;
@@ -50,7 +44,6 @@ h1 {
     position: relative;
     z-index: 5;
     padding-top: 0;
-    /* remove extra top padding */
 }
 
 

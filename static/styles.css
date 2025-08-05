@@ -16,10 +16,25 @@ body {
     align-items: center;
 }
 
+.manage-container h1 {
+    margin-bottom: 20px;
+}
+
 .CRUD-container {
     background-color: rgba(0, 0, 0, 0.533);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     color: white;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form-group {
+    padding-top: 15px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
 }

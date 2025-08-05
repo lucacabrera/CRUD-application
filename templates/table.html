@@ -1,6 +1,56 @@
 {% extends "base.html" %} {% block title %}Books Grid{% endblock %} {% block
 content %}
-<h1 style="text-align: center">Books Grid</h1>
+<nav
+  class="navbar navbar-expand-lg navbar-dark bg-transparent shadow-sm fixed-top"
+  style="backdrop-filter: blur(8px); background-color: rgba(0, 0, 0, 0.4)"
+>
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="#">
+      <img
+        src="{{ url_for('static', filename='assets/bookstore.png') }}"
+        alt="Bookstore Logo"
+        class="me-2"
+        style="height: 50px; width: auto"
+      />
+      <span class="fw-bold fs-4 text-black">Bookstore</span>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav gap-3">
+        <li class="nav-item">
+          <a
+            class="nav-link text-black fw-semibold"
+            href="index.html"
+            id="nav-manage"
+          >
+            <i class="bi bi-book-fill me-1"></i>Manage
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link text-black fw-semibold"
+            href="{{ url_for('view_page') }}"
+            id="nav-view"
+          >
+            <i class="bi bi-table me-1"></i>View
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<h1 style="text-align: center; padding-top: 100px">Books Grid</h1>
 
 <div class="grid">
   {% for book in books %}
@@ -10,7 +60,9 @@ content %}
       alt="Cover"
       class="book-icon"
     />
-    <h3>{{ book.title }}</h3>
+    <div class="title-container">
+      <h3>{{ book.title }}</h3>
+    </div>
     <div class="book-details">
       <p><strong>Author:</strong> {{ book.author }}</p>
       <p>
@@ -23,9 +75,26 @@ content %}
 </div>
 
 <script>
+  // Resize title font to fit container height
+  function fitTextToContainer(
+    element,
+    maxHeight,
+    minFontSize = 10,
+    maxFontSize = 30
+  ) {
+    let fontSize = maxFontSize;
+    element.style.fontSize = fontSize + "px";
+
+    while (element.scrollHeight > maxHeight && fontSize > minFontSize) {
+      fontSize -= 1;
+      element.style.fontSize = fontSize + "px";
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     const cards = document.querySelectorAll(".book-card");
 
+    // Setup click toggling open class
     cards.forEach((card) => {
       card.addEventListener("click", () => {
         cards.forEach((c) => {
@@ -33,6 +102,11 @@ content %}
         });
         card.classList.toggle("open");
       });
+    });
+
+    // Fit all titles to their container height (140px)
+    document.querySelectorAll(".title-container h3").forEach((title) => {
+      fitTextToContainer(title, 140);
     });
   });
 </script>

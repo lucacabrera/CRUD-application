@@ -75,7 +75,6 @@ content %}
 </div>
 
 <script>
-  // Resize title font to fit container height
   function fitTextToContainer(
     element,
     maxHeight,
@@ -94,7 +93,6 @@ content %}
   document.addEventListener("DOMContentLoaded", () => {
     const cards = document.querySelectorAll(".book-card");
 
-    // Setup click toggling open class
     cards.forEach((card) => {
       card.addEventListener("click", () => {
         cards.forEach((c) => {
@@ -104,7 +102,6 @@ content %}
       });
     });
 
-    // Fit all titles to their container height (140px)
     document.querySelectorAll(".title-container h3").forEach((title) => {
       fitTextToContainer(title, 140);
     });

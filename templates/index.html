@@ -72,27 +72,42 @@
     <div class="manage-container">
       <div class="CRUD-container">
         <h1>Manage Books</h1>
-        <form class="form-manage">
-          <div class="form-row">
-            <label for="formInput1">Title:</label>
-            <input type="text" id="formInput1" placeholder="Enter book title" />
+        <form class="form-manage needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="formInput1" class="form-label">Title:</label>
+            <input
+              type="text"
+              id="formInput1"
+              class="form-control"
+              placeholder="Enter book title"
+              required
+            />
+            <div class="invalid-feedback">Please choose a title.</div>
           </div>
-          <div class="form-row">
-            <label for="formInput2">Author:</label>
-            <input type="text" id="formInput2" placeholder="Enter the author" />
+          <div class="mb-3">
+            <label for="formInput2" class="form-label">Author:</label>
+            <input
+              type="text"
+              id="formInput2"
+              class="form-control"
+              placeholder="Enter the author"
+              required
+            />
+            <div class="invalid-feedback">Please write the author.</div>
           </div>
-          <div class="form-row">
-            <label for="formInput3">Publishing Date:</label>
-            <input type="date" id="formInput3" />
+          <div class="mb-3">
+            <label for="formInput3" class="form-label">Publishing Date:</label>
+            <input type="date" id="formInput3" class="form-control" required />
+            <div class="invalid-feedback">Please choose a date.</div>
           </div>
-          <div class="form-row">
-            <label for="formFile1">Book cover (optional):</label>
-            <input type="file" id="formFile1" />
+          <div class="mb-3">
+            <label for="formFile1" class="form-label"
+              >Book cover (optional):</label
+            >
+            <input type="file" id="formFile1" class="form-control" />
           </div>
-          <div class="CRUDbuttons">
-            <button type="submit" class="btn">Submit</button>
-            <button type="button" class="btn secondary">Load</button>
-            <button type="button" class="btn danger">Delete</button>
+          <div class="CRUDbuttons d-flex gap-2">
+            <button type="submit" class="btn btn primary">Submit</button>
           </div>
         </form>
       </div>
@@ -108,5 +123,28 @@
       integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK"
       crossorigin="anonymous"
     ></script>
+    <script>
+      (function () {
+        "use strict";
+        window.addEventListener(
+          "load",
+          function () {
+            const form = document.querySelector(".form-manage");
+            form.addEventListener(
+              "submit",
+              function (event) {
+                if (!form.checkValidity()) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+                form.classList.add("was-validated");
+              },
+              false
+            );
+          },
+          false
+        );
+      })();
+    </script>
   </body>
 </html>

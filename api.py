@@ -18,10 +18,12 @@ migrate = Migrate(app, db)
 def home():
     return render_template("index.html")
 
+
 @app.route("/view")
 def view_page():
     books = Books.query.all()
-    return render_template('table.html', title = 'Books', books=books)
+    return render_template("table.html", title="Books", books=books)
+
 
 @app.route("/socket.io/")
 @app.route("/socket.io/<path:path>")
@@ -79,7 +81,7 @@ def createBook():
     )
     db.session.add(new_book)
     db.session.commit()
-    return ({"message": "book created"}), 201
+    return {"message": "book created"}, 201
 
 
 # get all books

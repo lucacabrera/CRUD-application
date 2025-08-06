@@ -53,7 +53,7 @@
             <li class="nav-item">
               <a
                 class="nav-link text-white fw-semibold"
-                href="index.html"
+                href="{{ url_for('home') }}"
                 id="nav-manage"
               >
                 <i class="bi bi-book-fill me-1"></i>Manage
@@ -76,11 +76,13 @@
     <div class="manage-container">
       <div class="CRUD-container">
         <h1>Manage Books</h1>
-        <form class="form-manage needs-validation" novalidate>
+
+        <form class="form-manage needs-validation id='book-form'" novalidate>
           <div class="mb-3">
             <label for="formInput1" class="form-label">Title:</label>
             <input
               type="text"
+              name="title"
               id="formInput1"
               class="form-control"
               placeholder="Enter book title"
@@ -92,6 +94,7 @@
             <label for="formInput2" class="form-label">Author:</label>
             <input
               type="text"
+              name="author"
               id="formInput2"
               class="form-control"
               placeholder="Enter the author"
@@ -101,7 +104,7 @@
           </div>
           <div class="mb-3">
             <label for="formInput3" class="form-label">Publishing Date:</label>
-            <input type="date" id="formInput3" class="form-control" required />
+            <input type="date" name="published_date" id="formInput3" class="form-control" required />
             <div class="invalid-feedback">Please choose a date.</div>
           </div>
           <div class="mb-3">
@@ -116,17 +119,6 @@
         </form>
       </div>
     </div>
-
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"
-      integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK"
-      crossorigin="anonymous"
-    ></script>
     <script>
       (function () {
         "use strict";
@@ -150,5 +142,6 @@
         );
       })();
     </script>
+    script src="{{ url_for('static', filename='scripts.js') }}"></script>
   </body>
 </html>

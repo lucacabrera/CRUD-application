@@ -30,7 +30,7 @@ content %}
         <li class="nav-item">
           <a
             class="nav-link text-black fw-semibold"
-            href="index.html"
+            href="{{ url_for('home') }}"
             id="nav-manage"
           >
             <i class="bi bi-book-fill me-1"></i>Manage
@@ -63,48 +63,15 @@ content %}
     <div class="title-container">
       <h3>{{ book.title }}</h3>
     </div>
-    <div class="book-details">
-      <p><strong>Author:</strong> {{ book.author }}</p>
-      <p>
-        <strong>Published:</strong> {{ book.published_date.strftime('%Y-%m-%d')
-        }}
-      </p>
-    </div>
+  </div>
+  <div class="book-details">
+    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p>
+      <strong>Published:</strong> {{ book.published_date.strftime('%Y-%m-%d') }}
+    </p>
+    <button class="btn btn danger">DELETE</button>
   </div>
   {% endfor %}
 </div>
-
-<script>
-  function fitTextToContainer(
-    element,
-    maxHeight,
-    minFontSize = 10,
-    maxFontSize = 30
-  ) {
-    let fontSize = maxFontSize;
-    element.style.fontSize = fontSize + "px";
-
-    while (element.scrollHeight > maxHeight && fontSize > minFontSize) {
-      fontSize -= 1;
-      element.style.fontSize = fontSize + "px";
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const cards = document.querySelectorAll(".book-card");
-
-    cards.forEach((card) => {
-      card.addEventListener("click", () => {
-        cards.forEach((c) => {
-          if (c !== card) c.classList.remove("open");
-        });
-        card.classList.toggle("open");
-      });
-    });
-
-    document.querySelectorAll(".title-container h3").forEach((title) => {
-      fitTextToContainer(title, 140);
-    });
-  });
-</script>
+script src="{{ url_for('static', filename='table.js') }}"></script>
 {% endblock %}

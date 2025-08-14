@@ -1,9 +1,6 @@
 {% extends "base.html" %} {% block title %}Books Grid{% endblock %} {% block
 content %}
-<nav
-  class="navbar navbar-expand-lg navbar-dark bg-transparent shadow-sm fixed-top"
-  style="backdrop-filter: blur(8px); background-color: rgba(0, 0, 0, 0.4)"
->
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" href="#">
       <img
@@ -12,7 +9,7 @@ content %}
         class="me-2"
         style="height: 50px; width: auto"
       />
-      <span class="fw-bold fs-4 text-black">Bookstore</span>
+      <span class="fw-bold fs-4 text-dark">Bookstore</span>
     </a>
     <button
       class="navbar-toggler"
@@ -29,7 +26,7 @@ content %}
       <ul class="navbar-nav gap-3">
         <li class="nav-item">
           <a
-            class="nav-link text-black fw-semibold"
+            class="nav-link text-dark fw-semibold"
             href="{{ url_for('home') }}"
             id="nav-manage"
           >
@@ -38,7 +35,7 @@ content %}
         </li>
         <li class="nav-item">
           <a
-            class="nav-link text-black fw-semibold"
+            class="nav-link text-dark fw-semibold"
             href="{{ url_for('view_page') }}"
             id="nav-view"
           >
@@ -50,28 +47,62 @@ content %}
   </div>
 </nav>
 
-<h1 style="text-align: center; padding-top: 100px">Books Grid</h1>
-
-<div class="grid">
+<h1 class="text-center mt-5 pt-5">Books Grid</h1>
+<div class="d-flex flex-wrap justify-content-center gap-4 mt-4">
   {% for book in books %}
-  <div class="book-card">
+  <div
+    class="card"
+    style="width: 18rem; cursor: pointer"
+    data-bs-toggle="modal"
+    data-bs-target="#modal-{{ book.id }}"
+  >
     <img
-      src="{{ book.cover_icon_url or url_for('static', filename='/assets/defaulticon.png') }}"
-      alt="Cover"
-      class="book-icon"
+      src="{{ book.cover_icon_url or url_for('static', filename='assets/defaulticon.png') }}"
+      class="card-img-top"
+      alt="Book Cover"
     />
-    <div class="title-container">
-      <h3>{{ book.title }}</h3>
+    <div class="card-body">
+      <h5 class="card-title">{{ book.title }}</h5>
+      <p class="card-text">By {{ book.author }}</p>
     </div>
-  </div>
-  <div class="book-details">
-    <p><strong>Author:</strong> {{ book.author }}</p>
-    <p>
-      <strong>Published:</strong> {{ book.published_date.strftime('%Y-%m-%d') }}
-    </p>
-    <button class="btn btn danger">DELETE</button>
   </div>
   {% endfor %}
 </div>
-script src="{{ url_for('static', filename='table.js') }}"></script>
-{% endblock %}
+
+{% for book in books %}
+<div
+  class="modal fade"
+  id="modal-{{ book.id }}"
+  tabindex="-1"
+  aria-labelledby="modalLabel-{{ book.id }}"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel-{{ book.id }}">
+          {{ book.title }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <p>
+          <strong>Published:</strong> {{
+          book.published_date.strftime('%Y-%m-%d') }}
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %} {% endblock %}

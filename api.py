@@ -9,9 +9,11 @@ from flask import Flask, render_template
 
 # falsk setup
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+app.config["SQLALCHEMY_DATABASE_URI"] = (
+    "postgresql://lucacabrera:abcd123@localhost:5432/ukdsc"
+)
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
 
 
 @app.route("/")
@@ -31,30 +33,8 @@ def socket_io_stub(path=None):
     return "", 204
 
 
-def seedBooks(csv_path="books.csv"):
-    with app.app_context():
-        if Books.query.first():
-            print("Books already seeded.")
-            return
-
-        abs_path = os.path.join(os.path.dirname(__file__), csv_path)
-
-        with open(abs_path, newline="", encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                new_book = Books(
-                    title=row["title"],
-                    author=row["author"],
-                    published_date=row["published_date"],
-                )
-                db.session.add(new_book)
-            db.session.commit()
-            print("books seeded.")
-
-
 class Books(db.Model):
     __tablename__ = "books"
-
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text())
     author = db.Column(db.Text())
@@ -135,6 +115,4 @@ def deleteBook(id):
 
 
 if __name__ == "__main__":
-    with app.app_context():
-        seedBooks()
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5000)

@@ -12,16 +12,3 @@ function fitTextToContainer(
     element.style.fontSize = fontSize + "px";
   }
 }
-
-var modal = document.getElementsByClassName("book-details");
-var card = document.getElementsByClassName("book-card");
-
-card.onclick = function () {
-  modal.style.display = "block";
-};
-
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};

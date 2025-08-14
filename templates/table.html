@@ -1,6 +1,9 @@
 {% extends "base.html" %} {% block title %}Books Grid{% endblock %} {% block
 content %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav
+  class="navbar navbar-expand-lg navbar-light bg-transparent shadow-sm fixed-top"
+  style="backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.8)"
+>
   <div class="container">
     <a class="navbar-brand d-flex align-items-center" href="#">
       <img
@@ -48,13 +51,18 @@ content %}
 </nav>
 
 <h1 class="text-center mt-5 pt-5">Books Grid</h1>
-<div class="d-flex flex-wrap justify-content-center gap-4 mt-4">
+
+<div
+  class="d-flex flex-wrap justify-content-center gap-4 mt-4"
+  id="books-container"
+>
   {% for book in books %}
   <div
     class="card"
+    id="book-card-{{ book.id }}"
     style="width: 18rem; cursor: pointer"
     data-bs-toggle="modal"
-    data-bs-target="#modal-{{ book.id }}"
+    data-bs-target="#primaryModal-{{ book.id }}"
   >
     <img
       src="{{ book.cover_icon_url or url_for('static', filename='assets/defaulticon.png') }}"
@@ -62,47 +70,192 @@ content %}
       alt="Book Cover"
     />
     <div class="card-body">
-      <h5 class="card-title">{{ book.title }}</h5>
-      <p class="card-text">By {{ book.author }}</p>
+      <h5 class="card-title" id="book-title-{{ book.id }}">{{ book.title }}</h5>
+      <p class="card-text" id="book-author-{{ book.id }}">
+        By {{ book.author }}
+      </p>
+      <p class="card-text" id="book-published-{{ book.id }}">
+        {{ book.published_date.strftime('%Y-%m-%d') if book.published_date else
+        'N/A' }}
+      </p>
     </div>
   </div>
+
+  <div
+    class="modal fade"
+    id="primaryModal-{{ book.id }}"
+    tabindex="-1"
+    aria-labelledby="primaryModalLabel-{{ book.id }}"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="primaryModalLabel-{{ book.id }}">
+            {{ book.title }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Author:</strong> {{ book.author }}</p>
+          <p>
+            <strong>Published:</strong> {{
+            book.published_date.strftime('%Y-%m-%d') if book.published_date else
+            'N/A' }}
+          </p>
+        </div>
+        <div class="modal-footer justify-content-center">
+          <button class="btn btn-danger" onclick="deleteBook({{ book.id }})">
+            Delete
+          </button>
+          <button
+            class="btn btn-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#updateModal-{{ book.id }}"
+            data-bs-dismiss="modal"
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="updateModal-{{ book.id }}"
+    tabindex="-1"
+    aria-labelledby="updateModalLabel-{{ book.id }}"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateModalLabel-{{ book.id }}">
+            Update Book
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <form
+          id="updateForm-{{ book.id }}"
+          onsubmit="return updateBook(event, {{ book.id }})"
+        >
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="title-{{ book.id }}" class="form-label">Title</label>
+              <input
+                type="text"
+                class="form-control"
+                id="title-{{ book.id }}"
+                value="{{ book.title }}"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="author-{{ book.id }}" class="form-label"
+                >Author</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="author-{{ book.id }}"
+                value="{{ book.author }}"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="published-{{ book.id }}" class="form-label"
+                >Published Date</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="published-{{ book.id }}"
+                value="{{ book.published_date.strftime('%Y-%m-%d') if book.published_date else '' }}"
+              />
+            </div>
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   {% endfor %}
 </div>
 
-{% for book in books %}
-<div
-  class="modal fade"
-  id="modal-{{ book.id }}"
-  tabindex="-1"
-  aria-labelledby="modalLabel-{{ book.id }}"
-  aria-hidden="true"
->
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel-{{ book.id }}">
-          {{ book.title }}
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <p><strong>Author:</strong> {{ book.author }}</p>
-        <p>
-          <strong>Published:</strong> {{
-          book.published_date.strftime('%Y-%m-%d') }}
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-{% endfor %} {% endblock %}
+<script>
+  function deleteBook(id) {
+    fetch(`/books/${id}`, { method: "DELETE" })
+      .then((res) => res.json())
+      .then(() => {
+        const card = document.getElementById(`book-card-${id}`);
+        if (card) card.remove();
+
+        const primaryModal = document.getElementById(`primaryModal-${id}`);
+        if (primaryModal) {
+          const modal =
+            bootstrap.Modal.getInstance(primaryModal) ||
+            new bootstrap.Modal(primaryModal);
+          modal.hide();
+        }
+      })
+      .catch((err) => console.error(err));
+  }
+
+  function updateBook(event, id) {
+    event.preventDefault();
+    const title = document.getElementById(`title-${id}`).value;
+    const author = document.getElementById(`author-${id}`).value;
+    const published_date = document.getElementById(`published-${id}`).value;
+
+    fetch(`/books/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title, author, published_date }),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        document.getElementById(`book-title-${id}`).textContent = title;
+        document.getElementById(
+          `book-author-${id}`
+        ).textContent = `By ${author}`;
+        document.getElementById(`book-published-${id}`).textContent =
+          published_date || "N/A";
+        const updateModalEl = document.getElementById(`updateModal-${id}`);
+        const updateModal =
+          bootstrap.Modal.getInstance(updateModalEl) ||
+          new bootstrap.Modal(updateModalEl);
+        updateModal.hide();
+      })
+      .catch((err) => console.error(err));
+  }
+</script>
+
+{% endblock %}

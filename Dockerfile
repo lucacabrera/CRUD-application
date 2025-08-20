@@ -6,4 +6,5 @@ RUN pip install python-dotenv gunicorn
 ENV FLASK_APP=api.py
 ENV FLASK_ENV=production
 EXPOSE 80
-CMD gunicorn --bind 0.0.0.0:80 api:app
+EXPOSE 5000
+CMD gunicorn --bind 0.0.0.0:5000 api:app

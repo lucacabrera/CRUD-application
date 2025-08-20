@@ -6,4 +6,4 @@ RUN pip install python-dotenv gunicorn
 ENV FLASK_APP=api.py
 ENV FLASK_ENV=production
 EXPOSE 80
-CMD flask db upgrade && gunicorn --bind 0.0.0.0:80 api:app
+CMD gunicorn --bind 0.0.0.0:80 api:app

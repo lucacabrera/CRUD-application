@@ -1,7 +1,6 @@
 import json
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 import os
 import csv
 
@@ -10,8 +9,10 @@ from flask import Flask, render_template
 # falsk setup
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "postgresql://lucacabrera:abcd123@localhost:5432/ukdsc"
+    "postgresql://lucacabrera:abcd123@<EC2_PUBLIC_IP>:5432/ukdsc"
 )
+
+
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
@@ -115,4 +116,4 @@ def deleteBook(id):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=80, debug=True)

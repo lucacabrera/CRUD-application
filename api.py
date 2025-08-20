@@ -9,7 +9,7 @@ from flask import Flask, render_template
 # falsk setup
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "postgresql://lucacabrera:abcd123@<http://13.48.106.250/>:5432/ukdsc"
+    "postgresql://lucacabrera:abcd123@13.48.106.250:5432/ukdsc"
 )
 
 

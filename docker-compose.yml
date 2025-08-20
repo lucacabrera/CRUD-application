@@ -1,0 +1,25 @@
+services:
+  web:
+    build: .
+    ports:
+      - "5001:5000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:abcd123@db:5432/bookstore
+      - FLASK_APP=api.py
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+
+  db:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: abcd123
+      POSTGRES_DB: bookstore
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

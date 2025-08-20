@@ -1,6 +1,7 @@
 import json
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import os
 import csv
 
@@ -9,10 +10,8 @@ from flask import Flask, render_template
 # falsk setup
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "postgresql://lucacabrera:abcd123@13.48.106.250:5432/ukdsc"
+    "postgresql://lucacabrera:abcd123@localhost:5432/ukdsc"
 )
-
-
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 

@@ -1,9 +1,6 @@
-FROM python:3.12-slim
+FROM python:3.12
 WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
 COPY . .
-RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install python-dotenv gunicorn
-ENV FLASK_APP=api.py
-ENV FLASK_ENV=production
-EXPOSE 80
-CMD gunicorn --bind 0.0.0.0:80 api:app
+CMD flask --app api.py db upgrade && python api.py

@@ -25,19 +25,7 @@ def home():
 @app.route("/view")
 def view_page():
     books = Books.query.all()
-    books_list = []
-    for b in books:
-        books_list.append(
-            {
-                "id": b.id,
-                "title": b.title,
-                "author": b.author,
-                "published_date": (
-                    b.published_date.strftime("%Y-%m-%d") if b.published_date else ""
-                ),
-            }
-        )
-    return render_template("table.html", title="Books", books=books_list)
+    return render_template("table.html", title="Books", books=books)
 
 
 @app.route("/socket.io/")

@@ -132,9 +132,9 @@ curl http://localhost:5000/books/[id]
 To update a book on the database
 
 ```
-curl -X PUT http://localhost:5000/books/1 \
+curl -X POST http://localhost:5000/books \
 -H "Content-Type: application/json" \
--d '{"title": "[title]", "author": "[author]", "published_date": "[yyyy-mm-dd]"}'
+-d '{"title": "title", "author": "author", "published_date": "yy-mm-dd"}'
 ```
 
 **4. DELETE**

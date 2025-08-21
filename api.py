@@ -1,7 +1,7 @@
 import json
 from flask import Flask, jsonify, request
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 import os
 import csv
 
@@ -10,7 +10,7 @@ from flask import Flask, render_template
 # falsk setup
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "postgresql://lucacabrera:abcd123@localhost:5432/ukdsc"
+    "postgresql://lucacabrera:abcd1234@host.docker.internal:5432/ukdsc"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
@@ -54,10 +54,15 @@ class Books(db.Model):
 @app.route("/books", methods=["POST"])
 def createBook():
     bookData = request.get_json()
+    published_date = (
+        datetime.strptime(bookData["published_date"], "%Y-%m-%d").date()
+        if bookData.get("published_date")
+        else None
+    )
     new_book = Books(
         title=bookData["title"],
         author=bookData["author"],
-        published_date=bookData["published_date"],
+        published_date=published_date,
     )
     db.session.add(new_book)
     db.session.commit()
@@ -98,11 +103,17 @@ def getBook(id):
 def updateBook(id):
     bookData = request.get_json()
     book = Books.query.get_or_404(id)
+
     book.title = bookData["title"]
     book.author = bookData["author"]
-    book.published_date = bookData["published_date"]
+    book.published_date = (
+        datetime.strptime(bookData["published_date"], "%Y-%m-%d").date()
+        if bookData.get("published_date")
+        else None
+    )
+
     db.session.commit()
-    return ({"message": "book updated"}), 200
+    return {"message": "book updated"}, 200
 
 
 # delete a book

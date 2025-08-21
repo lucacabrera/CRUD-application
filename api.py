@@ -9,8 +9,8 @@ from flask import Flask, render_template
 
 # falsk setup
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "postgresql://lucacabrera:abcd1234@172.31.25.214:5432/ukdsc"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+    "DATABASE_URL", "postgresql://lucacabrera:abcd1234@172.31.25.214:5432/ukdsc"
 )
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)

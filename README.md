@@ -73,8 +73,8 @@ brew install --cask postman
 Run this command in your terminal:
 
 ```bash
-git clone https://github.com/lucacabrera/ukdsc-project.git
-cd ukdsc-project
+git clone https://github.com/lucacabrera/CRUD-application.git
+cd CRUD-application
 ```
 
 **2. Build and start the containers**
